@@ -1,0 +1,677 @@
+<html>
+<head>
+<link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-1.18.0.css">
+</head>
+<body>
+<div id="qunit"></div>
+<div id="qunit-fixture"></div>
+<script src="numjs.js"></script>
+<script src="http://code.jquery.com/qunit/qunit-1.18.0.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> 
+<script>
+    QUnit.module("Number Theory Tests");
+    QUnit.test("numjs mod test", function (assert){
+        assert.equal(numjs.mod(-74, 31), 19, "mod(-74,31) = 19 test");
+        assert.equal(numjs.mod(101, 31), 8, "mod(-74,31) = 19 test");
+    })
+    QUnit.test("numjs gcd test", function (assert) {
+        assert.equal(numjs.gcd(20, 30), 10, "gcd(20,30) = 10 test");
+        assert.equal(numjs.gcd(6857, 7919), 1, "gcd(6857,7919) = 1 test");
+    });
+    QUnit.test("numjs isPrime test", function (assert) {
+        assert.ok(numjs.isPrime(13), "isPrime(13) returned true test");
+        assert.ok(numjs.isPrime(6857), "isPrime(13) returned true  test");
+        assert.ok(numjs.isPrime(7919), "isPrime(13) returned true test");
+        assert.ok(!numjs.isPrime(15), "isPrime(15) returned false test");
+    });
+    QUnit.test("numjs Extended Euclidean Algorithm test", function (assert) {
+        var expected = {x:-14,y:29,gcd:1};
+        assert.deepEqual(numjs.extendedEuclidean(89, 43), expected, "extendedEuclidean(89, 43) returns {x:-14,y:29,gcd:1} test");
+        expected = { x: -11, y: 14, gcd: 3 };
+        assert.deepEqual(numjs.extendedEuclidean(99, 78), expected, "extendedEuclidean(43, 27) returns { x: -11, y: 14, gcd: 3 } test ");
+        expected = { x: -9, y: 47, gcd: 2 };
+        assert.deepEqual(numjs.extendedEuclidean(240, 46), expected, "extendedEuclidean(240, 46) returns { x: -9, y: 47, gcd: 2 } test ");
+    });
+    QUnit.test("numjs nth prime test", function (assert) {
+        assert.equal(numjs.nthPrime(1), 2, "first prime = 2 test");
+        assert.equal(numjs.nthPrime(25), 97, "first prime = 2 test");
+        assert.equal(numjs.nthPrime(168), 997, "first prime = 2 test");
+    });
+    QUnit.test("numjs primesToN test", function (assert) {
+        var expected = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97];
+        assert.deepEqual(numjs.primesToN(100), expected, "numjs.primesToN(100) test");
+        assert.deepEqual(numjs.primesToN(97), expected, "numjs.primesToN(97) test");
+        expected = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317, 331, 337, 347, 349, 353, 359, 367, 373, 379, 383, 389, 397, 401, 409, 419, 421, 431, 433, 439, 443, 449, 457, 461, 463, 467, 479, 487, 491, 499, 503, 509, 521, 523, 541, 547, 557, 563, 569, 571, 577, 587, 593, 599, 601, 607, 613, 617, 619, 631, 641, 643, 647, 653, 659, 661, 673, 677, 683, 691, 701, 709, 719, 727, 733, 739, 743, 751, 757, 761, 769, 773, 787, 797, 809, 811, 821, 823, 827, 829, 839, 853, 857, 859, 863, 877, 881, 883, 887, 907, 911, 919, 929, 937, 941, 947, 953, 967, 971, 977, 983, 991, 997];
+        assert.deepEqual(numjs.primesToN(1000), expected, "numjs.primesToN(1000) test");
+    });
+    QUnit.test("numjs prime factors test", function (assert) {
+        assert.deepEqual(numjs.primeFactors(144), [{"power":4,"prime":2}, {"power":2,"prime":3}],"primeFactors(144) test");
+        assert.deepEqual(numjs.primeFactors(984), [{ "power": 3, "prime": 2 }, { "power": 1, "prime": 3 }, { "power": 1, "prime": 41 }], "primeFactors(984) test");
+        assert.deepEqual(numjs.primeFactors(998), [{ "power": 1, "prime": 2 }, { "power": 1, "prime": 499 }], "primeFactors(998) test");
+        assert.deepEqual(numjs.primeFactors(499), [{ "power": 1, "prime": 499 }], "primeFactors(499) test");
+    });
+    QUnit.test("numjs Euler's totient test", function (assert) {
+        assert.equal(numjs.eulersTotient(36), 12, "eulersTotient(36) test");
+        assert.equal(numjs.eulersTotient(90), 24, "eulersTotient(90) test");
+        assert.equal(numjs.eulersTotient(100), 40, "eulersTotient(100) test");
+    });
+    QUnit.test("numjs factor count test", function (assert) {
+        assert.equal(numjs.factorCount(28), 6, "factorCount(144) test");
+        assert.equal(numjs.factorCount(984), 16, "factorCount(984) test");
+        assert.equal(numjs.factorCount(998), 4, "factorCount(998) test");
+        assert.equal(numjs.factorCount(499), 2, "factorCount(499) test");
+    });
+	QUnit.test("numjs binomialCoefficient test", function (assert) {
+        assert.equal(numjs.binomialCoefficient(4, 2), 6, "binomialCoefficent(4,2) = 6 test");
+        assert.equal(numjs.binomialCoefficient(40, 20), 137846528820, "binomialCoefficent(40, 20) = 137846528820 test");
+    });
+
+    QUnit.module("Linear Algebra RVector Tests");
+    QUnit.test("numjs RVector Create Test", function (assert) {
+        var testVector = new numjs.RVector(5);
+        assert.equal(testVector.toString(), "[0,0,0,0,0]", "vector create test");
+    });
+    QUnit.test("numjs RVector Add Test", function (assert) {
+        var v1 = new numjs.RVector(4);
+        var v2 = new numjs.RVector(4);
+        var expected = new numjs.RVector(4);
+        for (var i = 0; i < 4; i++) {
+            v1.set(i, i + 1);
+        }
+        for (var j = 0; j < 4; j++) {
+            v2.set(j, j + 10);
+        }
+        v1.add(v2);
+        expected.set(0, 1 + 10);
+        expected.set(1, 2 + 11);
+        expected.set(2, 3 + 12);
+        expected.set(3, 4 + 13);
+        assert.ok(v1.isStrictEqual(expected), "Vector Add Test");
+    });
+    QUnit.test("numjs RVector Dot Product Test", function (assert) {
+        var A = new numjs.RVector(4);
+        var B = new numjs.RVector(4);
+        var expected = 120;
+        var result = 0;
+
+        for (var i = 0; i < 4; i++) {
+            A.set(i, i + 1);
+        }
+
+        for (var j = 0; j < 4; j++) {
+            B.set(j, j + 10);
+        }
+
+        result = A.dotProduct(B);
+
+        assert.equal(result, expected, "dot product test");
+    });
+    QUnit.test("numjs RVector Subtract Test", function (assert) {
+        var v1 = new numjs.RVector(5);
+        var v2 = new numjs.RVector(5);
+        var expected = new numjs.RVector(5);
+
+        v1.set(0, 10.0);
+        v1.set(1, 103.0);
+        v1.set(2, -13.0);
+        v1.set(3, -15);
+        v1.set(4, 72.0);
+
+        v2.set(0, 12.0);
+        v2.set(1, -6.0);
+        v2.set(2, 22.0);
+        v2.set(3, -26.0);
+        v2.set(4, 27);
+
+        expected.set(0, -2.0);
+        expected.set(1, 109.0);
+        expected.set(2, -35.0);
+        expected.set(3, 11.0);
+        expected.set(4, 45.0);
+
+        v1.subtract(v2);
+
+        assert.ok(v1.isStrictEqual(expected), "Vector subtract Test");
+    });
+    QUnit.test("numjs RVector Scalar Multiply Test", function (assert) {
+        var v1 = new numjs.RVector(3);
+        var expected = new numjs.RVector(3);
+        var scalar = 3.0;
+
+        v1.set(0, 1.0);
+        v1.set(1, -3.0);
+        v1.set(2, 4);
+
+        expected.set(0, 3.0);
+        expected.set(1, -9.0);
+        expected.set(2, 12.0);
+
+        v1.scalarMultiply(scalar);
+
+        assert.ok(v1.isStrictEqual(expected), "Vector scalar multiply test");
+    });
+    QUnit.test("numjs RVector Norm Tests", function (assert) {
+        //test euclidian norm
+        var v1 = new numjs.RVector(3);
+        var expected = Math.sqrt(35);
+
+        v1.set(0, 1);
+        v1.set(1, -3.0);
+        v1.set(2, 5);
+
+        var result = v1.norm();
+
+        assert.equal(result, expected, "RVector norm test");
+
+        v1 = new numjs.RVector(3);
+        expected = 9.0;
+
+        v1.set(0, 1);
+        v1.set(1, -3.0);
+        v1.set(2, 5);
+
+        result = v1.norm1();
+
+        assert.equal(result, expected, "RVector norm1 test");
+
+        v1 = new numjs.RVector(3);
+        expected = Math.pow(Math.pow(1, 5) + Math.pow(2, 5) + Math.pow(3, 5), .2);
+
+        v1.set(0, 1);
+        v1.set(1, 2);
+        v1.set(2, 3);
+
+        result = v1.normP(5);
+
+        assert.equal(result, expected, "RVector normp(5) test");
+
+        expected = Math.sqrt(14);
+        result = v1.normP(2);
+        assert.equal(result, expected, "Rvector normp(2) test");
+
+        v1 = new numjs.RVector(3);
+        expected = 5;
+
+        v1.set(0, 1);
+        v1.set(1, -3.0);
+        v1.set(2, 5);
+
+        result = v1.normInf();
+
+        assert.equal(result, expected, "RVector normInf test");
+    });
+    QUnit.test("numjs RVector Normalize Test", function (assert) {
+        var v1 = new numjs.RVector(3);
+        var norm = 1/Math.sqrt(35);
+		
+        v1.set(0, 1);
+        v1.set(1, -3.0);
+        v1.set(2, 5);
+
+        var expected = v1.copy();
+        v1.normalize();
+        expected.scalarMultiply(norm);
+		
+        assert.ok(v1.isStrictEqual(expected), "RVector normalize test");
+    });
+    QUnit.test("numjs RVector Inner Product Norm Test", function (assert) {
+        var result = 0.0;
+        var expected = Math.sqrt(50.0);
+        var w = [];
+
+        w[0] = [];
+        w[0][0] = 1.0;
+        w[0][1] = 1.0;
+        w[0][2] = 0.0;
+        w[1] = [];
+        w[1][0] = 0.0;
+        w[1][1] = 1.0;
+        w[1][2] = 1.0;
+        w[2] = [];
+        w[2][0] = 1.0;
+        w[2][1] = 0.0;
+        w[2][2] = 1.0;
+
+        var W = numjs.convertArrayToRMatrix(w);
+        var X = new numjs.RVector(3);
+
+        X.set(0, 1);
+        X.set(1, 2);
+        X.set(2, 3);
+
+        result = X.innerProductNorm(W);
+
+        assert.equal(result, expected, "vector inner product norm test");
+    });
+
+    QUnit.module("Linear Algebra RMatrix Tests");
+    QUnit.test("numjs RMatrix Create Test", function (assert) {
+        //test matrix create 
+	    var W = new numjs.RMatrix(3, 3);
+        assert.equal(W.toString(),"[[0,0,0][0,0,0][0,0,0]]", "matrix create test")
+    });
+    QUnit.test("numjs", function (assert) {
+        //test matrix add
+        var A = new numjs.RMatrix(3,3);
+        var B = new numjs.RMatrix(3, 3);
+        var expected = new numjs.RMatrix(3, 3);
+		
+        A.set(0, 0, 0.0);
+        A.set(0, 1, 1.0);
+        A.set(0, 2, 3.0);
+        A.set(1, 0, 2.0);
+        A.set(1, 1, 3.0);
+        A.set(1, 2, 4.0);
+        A.set(2, 0, -9.0);
+        A.set(2, 1, 7.0);
+        A.set(2, 2, 1.0);
+		
+        B.set(0 , 0, 4.0);
+        B.set(0 , 1, 5.0);
+        B.set(0 , 2, 2.0);
+        B.set(1 , 0, 6.0);
+        B.set(1 , 1, -7.0);
+        B.set(1 , 2, -4.0);
+        B.set(2 , 0, -8.0);
+        B.set(2 , 1, -7.0);
+        B.set(2 , 2, 3.0);
+		
+        expected.set(0 , 0, 4.0);
+        expected.set(0 , 1, 6.0);
+        expected.set(0 , 2, 5.0);
+        expected.set(1 , 0, 8.0);
+        expected.set(1 , 1, -4.0);
+        expected.set(1 , 2, 0.0);
+        expected.set(2 , 0, -17.0);
+        expected.set(2 , 1, 0.0);
+        expected.set(2 , 2, 4.0);
+		
+        A.add(B);
+
+        assert.deepEqual(A, B, "Matrix add test");
+    });
+    QUnit.test("numjs RMatrix Subtract Test", function (assert) {
+        var A = new numjs.RMatrix(3,3);
+        var B = new numjs.RMatrix(3, 3);
+        var expected = new numjs.RMatrix(3, 3);
+		
+        A.set(0, 0, 0.0);
+        A.set(0, 1, 1.0);
+        A.set(0, 2, 3.0);
+        A.set(1, 0, 2.0);
+        A.set(1, 1, 3.0);
+        A.set(1, 2, 4.0);
+        A.set(2, 0, -9.0);
+        A.set(2, 1, 7.0);
+        A.set(2, 2, 1.0);
+		
+        B.set(0 , 0, 4.0);
+        B.set(0 , 1, 5.0);
+        B.set(0 , 2, 2.0);
+        B.set(1 , 0, 6.0);
+        B.set(1 , 1, -7.0);
+        B.set(1 , 2, -4.0);
+        B.set(2 , 0, -8.0);
+        B.set(2 , 1, -7.0);
+        B.set(2 , 2, 3.0);
+		
+        expected.set(0 , 0, -4.0);
+        expected.set(0 , 1, -4.0);
+        expected.set(0 , 2, 1.0);
+        expected.set(1 , 0, -4.0);
+        expected.set(1 , 1, 10.0);
+        expected.set(1 , 2, 8.0);
+        expected.set(2 , 0, -1.0);
+        expected.set(2 , 1, 14.0);
+        expected.set(2 , 2, -2.0);
+		
+        A.subtract(B);
+		
+        assert.ok(A.isStrictEqual(expected), "RMatrix add test");
+        assert.ok(A.isDeltaEqual(expected), "RMatrix add test");
+    });
+    QUnit.test("numjs RMatrix Create Identity Matrix Test", function (assert) {
+        var I = new numjs.identityMatrix(4, 4);
+        var expected = new numjs.RMatrix(4, 4);
+
+        for(var i=0;i<4;i++)
+        {
+            expected.set(i,i,1);
+        }
+
+        assert.ok(I.isStrictEqual(expected), "Matrix identity test");
+    });
+    QUnit.test("numjs RMatrix Multiply Test", function (assert) {
+        var W = new numjs.RMatrix(3, 3);
+        var X = new numjs.RVector(3);
+        var expected = new numjs.RVector(3);
+
+        W.set(0, 0, 1);
+        W.set(0, 1, 1);
+        W.set(0, 2, 0);
+        W.set(1, 0, 0);
+        W.set(1, 1, 1);
+        W.set(1, 2, 1);
+        W.set(2, 0, 1);
+        W.set(2, 1, 0);
+        W.set(2, 2, 1);
+
+        X.set(0, 1);
+        X.set(1, 2);
+        X.set(2, 3);
+
+        var result = X.matrixMultiply(W);
+
+        expected.set(0, 3);
+        expected.set(1, 5);
+        expected.set(2, 4);
+
+        assert.ok(result.isStrictEqual(expected), "RVector matrix multiply test");
+
+        var A2 = new numjs.RMatrix(2, 2);
+        var B2 = new numjs.RMatrix(2, 3);
+        var expected2 = new numjs.RMatrix(2, 3);
+
+        A2.set(0, 0, 7.0);
+        A2.set(0, 1, 8.0);
+        A2.set(1, 0, 0.0);
+        A2.set(1, 1, -9.0);
+
+        B2.set(0, 0, 1.0);
+        B2.set(0, 1, 2.0);
+        B2.set(0, 2, 3.0);
+        B2.set(1, 0, 4.0);
+        B2.set(1, 1, -5.0);
+        B2.set(1, 2, 6.0);
+
+        expected2.set(0, 0, 39.0);
+        expected2.set(0, 1, -26.0);
+        expected2.set(0, 2, 69.0);
+        expected2.set(1, 0, -36.0);
+        expected2.set(1, 1, 45.0);
+        expected2.set(1, 2, -54.0);
+
+        assert.ok(A2.multiply(B2).isStrictEqual(expected2), "Matrix multiply test");
+    });
+    QUnit.test("numjs RMatrix Transpose Test", function (assert) {
+	    var A = new numjs.RMatrix(2,3);
+	    var expected = new numjs.RMatrix(3,2);
+		
+	    A.set(0, 0, 1.0);
+	    A.set(0, 1, 2.0);
+	    A.set(0, 2, 3.0);
+	    A.set(1, 0, 4.0);
+	    A.set(1, 1, -5.0);
+	    A.set(1, 2, 6.0);
+		
+	    expected.set(0, 0, 1.0);
+	    expected.set(0, 1, 4.0);
+	    expected.set(1, 0, 2.0);
+	    expected.set(1, 1, -5.0);
+	    expected.set(2, 0, 3.0);
+	    expected.set(2, 1, 6.0);
+		
+	    var At = A.transpose();
+		
+	    assert.ok(At.isStrictEqual(expected),"Matrix transpose test");
+    });
+    QUnit.test("numjs RMatrix Trace Test", function (assert) {
+        var A = new numjs.RMatrix(3,3);
+        var trace = 0.0;
+        var expected = 6.0;
+		
+        A.set(0, 0, -5.0);
+        A.set(0, 1, 1.0);
+        A.set(0, 2, 3.0);
+        A.set(1, 0, 2.0);
+        A.set(1, 1, 3.0);
+        A.set(1, 2, 4.0);
+        A.set(2, 0, -9.0);
+        A.set(2, 1, 7.0);
+        A.set(2, 2, 8.0);
+		
+        trace = A.trace();
+		
+        assert.equal(trace, expected, "RMatrix trace test");
+    });
+    QUnit.test("numjs RMatrix Submatrix Test", function (assert) {
+        var A = new numjs.RMatrix(4,4);
+        A.set(0, 0, -5.0);
+        A.set(0, 1, 1.0);
+        A.set(0, 2, 3.0);
+        A.set(0,3,11);
+        A.set(1, 0, 2.0);
+        A.set(1, 1, 3.0);
+        A.set(1, 2, 4.0);
+        A.set(1,3,-12);
+        A.set(2, 0, -9.0);
+        A.set(2, 1, 7.0);
+        A.set(2, 2, 8.0);
+        A.set(2,3,3.0);
+        A.set(3,0,9.0);
+        A.set(3,1,10.0);
+        A.set(3,2,-2.0);
+        A.set(3,3,-1.0);
+		
+        var expected = new numjs.RMatrix(3,3);
+        expected.set(0, 0, 3.0);
+        expected.set(0, 1, 4.0);
+        expected.set(0, 2, -12.0);
+        expected.set(1, 0, 7.0);
+        expected.set(1, 1, 8.0);
+        expected.set(1, 2, 3.0);
+        expected.set(2,0,10.0);
+        expected.set(2,1,-2.0);
+        expected.set(2,2,-1.0);
+		
+        assert.ok(A.submatrix(0, 0).isStrictEqual(expected), "Matrix submatrix text");
+    });
+
+    QUnit.module("Linear Algebra RMatrix Decomposition Tests");
+    QUnit.test("numjs LUP Decomposition Test", function (assert) {
+        var a = new numjs.RMatrix(4,4);
+        var b = new numjs.RMatrix(4,4);
+		
+        a.set(0,0,2);
+        a.set(0,1,0);
+        a.set(0,2,2);
+        a.set(0,3,0.6);
+        a.set(1,0,3);
+        a.set(1,1,3);
+        a.set(1,2,4);
+        a.set(1,3,-2);
+        a.set(2,0,5);
+        a.set(2,1,5);
+        a.set(2,2,4);
+        a.set(2,3,2);
+        a.set(3,0,-1);
+        a.set(3,1,-2);
+        a.set(3,2,3.4);
+        a.set(3,3,-1);
+		
+        b.set(0,0,5);
+        b.set(0,1,5);
+        b.set(0,2,4);
+        b.set(0,3,2);
+        b.set(1,0,0.4);
+        b.set(1,1,-2);
+        b.set(1,2,0.4);
+        b.set(1,3,-0.2);
+        b.set(2,0,-.2);
+        b.set(2,1,.5);
+        b.set(2,2,4);
+        b.set(2,3,-0.5);
+        b.set(3,0,0.6);
+        b.set(3,1,0);
+        b.set(3,2,0.4);
+        b.set(3,3,-3);
+		
+        var expectedP = [2,0,3,1];
+		
+        var lup = a.LUPDecomposition();
+		
+        assert.ok(lup[0].isDeltaEqual(b), "matrix getlup test");
+    });
+    QUnit.test("numjs RMatrix LUP Determinant Test", function (assert) {
+        var A = new numjs.RMatrix(3,3);
+        A.set(0, 0, 2);
+        A.set(0, 1, 3);
+        A.set(0, 2, 4);
+        A.set(1, 0, -5);
+        A.set(1, 1, 5);
+        A.set(1, 2, 6);
+        A.set(2, 0, 7);
+        A.set(2, 1, 8);
+        A.set(2, 2, 9);
+		
+        var result = A.determinant();
+        var expected = -45.0;
+		
+        assert.ok(Math.abs(result - expected) <= 1e-13, "matrix determinant test: expected = " + expected + " result=" + result);
+
+        var A2 = new numjs.RMatrix(4, 4);
+        A2.set(0, 0, 1);
+        A2.set(0, 1, -4);
+        A2.set(0, 2, 2);
+        A2.set(0, 3, -2);
+        A2.set(1, 0, 4);
+        A2.set(1, 1, 7);
+        A2.set(1, 2, -3);
+        A2.set(1, 3, 5);
+        A2.set(2, 0, 3);
+        A2.set(2, 1, 0.0);
+        A2.set(2, 2, 8);
+        A2.set(2, 3, 0.0);
+        A2.set(3, 0, -5);
+        A2.set(3, 1, -1);
+        A2.set(3, 2, 6);
+        A2.set(3, 3, 9);
+		
+		
+        result = A2.determinant();//LUPDecomposition.determinant(A);
+        expected = -2042.0;
+		
+        assert.ok(Math.abs(result - expected) <= 1e-12, "matrix determinant test: expected = " + expected + " result=" + result);
+
+    });
+    QUnit.test("numjs RMatrix Cholesky Decomposition Test", function (assert) {
+        var a = new numjs.RMatrix(4, 4);
+        var b = new numjs.RMatrix(4, 4);
+
+        a.set(0, 0, 16);
+        a.set(0, 1, -3);
+        a.set(0, 2, 5);
+        a.set(0, 3, -8);
+        a.set(1, 0, -3);
+        a.set(1, 1, 16);
+        a.set(1, 2, -5);
+        a.set(1, 3, -8);
+        a.set(2, 0, 5);
+        a.set(2, 1, -5);
+        a.set(2, 2, 24);
+        a.set(2, 3, 0);
+        a.set(3, 0, -8);
+        a.set(3, 1, -8);
+        a.set(3, 2, 0);
+        a.set(3, 3, 21);
+
+        b.set(0, 0, 4);
+        b.set(0, 1, 0);
+        b.set(0, 2, 0);
+        b.set(0, 3, 0);
+        b.set(1, 0, -0.75);
+        b.set(1, 1, 3.92906);
+        b.set(1, 2, 0);
+        b.set(1, 3, 0);
+        b.set(2, 0, 1.25);
+        b.set(2, 1, -1.03396);
+        b.set(2, 2, 4.62260);
+        b.set(2, 3, 0);
+        b.set(3, 0, -2);
+        b.set(3, 1, -2.41788);
+        b.set(3, 2, 0);
+        b.set(3, 3, 3.33974);
+
+        var choleskyl = a.CholeskyDecompositionGetL();
+        choleskyl.DELTA = 1e-5;
+
+        assert.ok(choleskyl.isDeltaEqual(b), "matrix choleskygetl test");
+    });
+    /*QUnit.test("numjs", function (assert) {
+
+    });
+
+QUnit.test( "NUBMERTHEORY test", function( assert ) {
+    
+
+    
+
+    
+
+	
+	
+    
+
+    
+
+    
+
+    
+
+    //determinant tests
+    /*@Test
+	public void testDeterminant()
+	{
+	    RMatrix A = new RMatrix(3,3);
+	    A.set(0, 0, 2);
+	    A.set(0, 1, 3);
+	    A.set(0, 2, 4);
+	    A.set(1, 0, -5);
+	    A.set(1, 1, 5);
+	    A.set(1, 2, 6);
+	    A.set(2, 0, 7);
+	    A.set(2, 1, 8);
+	    A.set(2, 2, 9);
+		
+		
+	    double result = A.determinant();//LUPDecomposition.determinant(A);
+	    double expected = -45.0;
+		
+	    assertEquals(expected,result,DELTA);	
+	}
+	
+	@Test
+	public void testDeterminant2()
+	{
+	    RMatrix A = new RMatrix(4,4);
+	    A.set(0, 0, 1);
+	    A.set(0, 1, -4);
+	    A.set(0, 2, 2);
+	    A.set(0, 3, -2);
+	    A.set(1, 0, 4);
+	    A.set(1, 1, 7);
+	    A.set(1, 2, -3);
+	    A.set(1, 3, 5);
+	    A.set(2, 0, 3);
+	    A.set(2, 1, 0.0);
+	    A.set(2, 2, 8);
+	    A.set(2, 3, 0.0);
+	    A.set(3, 0, -5);
+	    A.set(3, 1, -1);
+	    A.set(3, 2, 6);
+	    A.set(3, 3, 9);
+		
+		
+	    double result = A.determinant();//LUPDecomposition.determinant(A);
+	    double expected = 2042.0;
+		
+	    assertEquals(expected,result,DELTA);	
+	}
+
+});*/
+</script>
+<script>
+
+</script>
+</body>
+</head>
