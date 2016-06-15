@@ -250,7 +250,54 @@
 	    var W = new numjs.RMatrix(3, 3);
         assert.equal(W.toString(),"[[0,0,0][0,0,0][0,0,0]]", "matrix create test")
     });
-    QUnit.test("numjs", function (assert) {
+    QUnit.test("numjs RMatrix Get Column Vector Test", function (assert){
+        var A = new numjs.RMatrix(3, 4);
+
+        A.set(0, 0, 0.0);
+        A.set(0, 1, 1.0);
+        A.set(0, 2, 3.0);
+        A.set(0, 3, 4.9);
+        A.set(1, 0, 2.0);
+        A.set(1, 1, 3.0);
+        A.set(1, 2, 4.0);
+        A.set(1, 3, -1.5);
+        A.set(2, 0, -9.0);
+        A.set(2, 1, 7.0);
+        A.set(2, 2, 1.0);
+        A.set(2, 3, 11.2);
+
+        var expected = new numjs.RVector(3);
+        expected.set(0, 1.0);
+        expected.set(1, 3.0);
+        expected.set(2, 7.0);
+        
+        assert.ok(A.getColumnVector(1).isStrictEqual(expected), "RMatrix getColumnVector test.");
+    });
+    QUnit.test("numjs RMatrix Get Row Vector Test", function (assert) {
+        var A = new numjs.RMatrix(3, 4);
+
+        A.set(0, 0, 0.0);
+        A.set(0, 1, 1.0);
+        A.set(0, 2, 3.0);
+        A.set(0, 3, 4.9);
+        A.set(1, 0, 2.0);
+        A.set(1, 1, 3.0);
+        A.set(1, 2, 4.0);
+        A.set(1, 3, -1.5);
+        A.set(2, 0, -9.0);
+        A.set(2, 1, 7.0);
+        A.set(2, 2, 1.0);
+        A.set(2, 3, 11.2);
+
+        var expected = new numjs.RVector(3);
+        expected.set(0, -9.0);
+        expected.set(1, 7.0);
+        expected.set(2, 1.0);
+        expected.set(3, 11.2);
+
+        assert.ok(A.getRowVector(2).isStrictEqual(expected), "RMatrix getRowVector test.");
+    });
+    QUnit.test("numjs RMatrix Add test", function (assert) {
         //test matrix add
         var A = new numjs.RMatrix(3,3);
         var B = new numjs.RMatrix(3, 3);

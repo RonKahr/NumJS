@@ -453,7 +453,7 @@
 		    if (col < 0 || col > this.rowCount() - 1)
 		        throw new Error("The column index must be non-negative and less than the column dimension of the matrix.");
 
-		    var vector = new numjs.RVector(cols);
+		    var vector = new numjs.RVector(this.rowCount());
 
 		    for (var i = 0; i < this.rowCount() ; i++) {
 		        vector.set(i, this.get(i,col));
@@ -466,7 +466,7 @@
 		    if (row < 0 || row > this.columnCount() - 1)
 		        throw new Error("The row index must be non-negative and less than the row dimension of the matrix.");
 
-		    var vector = new numjs.RVector(cols);
+		    var vector = new numjs.RVector(this.columnCount());
 
 		    for (var j = 0; j < this.columnCount() ; j++) {
 		        vector.set(j, this.get(row,j));
