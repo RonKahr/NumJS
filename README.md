@@ -61,7 +61,7 @@ numjs.factorCount(28)  //returns 6
 
 ## Combinatorics
 
-## binomialCoefficient(n,k)
+###### binomialCoefficient(n,k)
 Returns the The binomial coefficient of n,k.  The binomial coefficient represents the number of ways of picking k unordered outcomes from n possibilities, also known as a combination or combinatorial number.
 
 Usage  
