@@ -103,6 +103,7 @@ add(B):  Adds matrix B to the current matrix.
 copy():  Returns a copy of the matrix.  
 getColumnVector(col):  Return a RVector object of the specified column.  
 getRowVector(row):  Return a RVector object of the specified row.  
+identityMatrix(n,m):  Return an identity matrix with n rows and m columns.  
 multiply(B):  Return a RMatrix object of the AxB product.  
 subtract(B):  Subtract the RMatrix B from the current matrix, A-B.  
 transpose():  Return the transpose (A<sup>T</sup>) of the current matrix.
@@ -111,10 +112,10 @@ submatrix(row,col):  Return a submatrix of the current matrix by eliminating the
 toString():  Return a string representation of the matrix.
 isStrictEqual(B): Compare each element in the current matrix to another matrix B and return false if any value does not match.
 isDeltaEqual(B): Compare each element in the current matrix to another matrix B and return false only if the absolute value of the difference is greater than the DELTA value.
+determinant(): Return the determinant of the current matrix.  
+convertArrayToRMatrix(data):  Convert an javascript multi-dimenisonal array object to a RMatrix object.
 
 ##### Factorization Methods
-LUPDecomposition()
-CholeskyDecompositionGetL()
-QRDecomposition()
-
-
+LUPDecomposition()  
+CholeskyDecompositionGetL()  
+QRDecomposition()  
