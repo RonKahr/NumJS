@@ -101,4 +101,10 @@ Initialize a matrix of real numbers of n rows by m columns
 ##### Methods
 add(B):  Adds matrix B to the current matrix.  
 copy():  Returns a copy of the matrix.  
+getColumnVector(col):  Return a RVector object of the specified column.  
+getRowVector(row):  Return a RVector object of the specified row.  
+multiply(B):  Return a RMatrix object of the AxB product.  
+subtract(B):  Subtract the RMatrix B from the current matrix, A-B.  
+transpose():  Return the transpose (A<sup>T</sup>) of the current matrix.
+trace():  Return the trace of the current matrix.  
 
