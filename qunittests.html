@@ -557,7 +557,8 @@
 		
         var lup = a.LUPDecomposition();
 		
-        assert.ok(lup[0].isDeltaEqual(b), "matrix getlup test");
+        assert.ok(lup.LU.isDeltaEqual(b), "matrix getlup test for LU");
+        assert.deepEqual(lup.P,expectedP, "matrix getlup test for P")
     });
     QUnit.test("numjs RMatrix LUP Determinant Test", function (assert) {
         var A = new numjs.RMatrix(3,3);
@@ -643,6 +644,24 @@
         choleskyl.DELTA = 1e-5;
 
         assert.ok(choleskyl.isDeltaEqual(b), "matrix choleskygetl test");
+    });
+
+    QUnit.module("Linear Algebra Solve Linear Equations Test");
+    QUnit.test("numjs LUPSolve Test", function (assert) {
+        var equations = numjs.convertArrayToRMatrix([[1,2,0,3],[3,4,4,7],[5,6,3,8]]);
+
+        var solution = equations.LUPSolve();
+        var expected = numjs.convertArrayToRVector([-1.4, 2.2, 0.6]);
+                
+        assert.ok(solution.isDeltaEqual(expected), "LUPSolve test 1");
+    });
+    QUnit.test("numjs LUPSolve Test 2", function (assert) {
+        var equations = numjs.convertArrayToRMatrix([[1, -2, 3, 7], [2, 1, 1, 4], [-3, 2, -2, -10]]);
+
+        var solution = equations.LUPSolve();
+        var expected = numjs.convertArrayToRVector([2, -1, 1]);
+
+        assert.ok(solution.isDeltaEqual(expected), "LUPSolve test");
     });
     /*QUnit.test("numjs", function (assert) {
 
